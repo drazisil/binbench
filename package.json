@@ -7,7 +7,8 @@
     ".": "./lib/index.js"
   },
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "coverage": "node --test --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stderr --test-reporter=lcov --test-reporter-destination=coverage/lcov.info "
   },
   "type": "module",
   "keywords": [],
