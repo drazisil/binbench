@@ -1,6 +1,6 @@
 import { deepEqual } from "node:assert";
 import { test } from "node:test";
-import { highByte, lowByte, isvalidU16, isValidS16 } from "../lib/index.js";
+import { highByte, lowByte, isvalidU16, isValidS16, isValidU32, isValidS32 } from "../lib/index.js";
 
 test("that lowByte returns the low byte of a number in little-endian format", () => {
     deepEqual(lowByte(0x1234), 0x34, "0x1234 should return 0x34");
@@ -57,6 +57,27 @@ test("that isValidS16 returns true for valid signed 16-bit integers", () => {
 test("that isValidS16 returns false for invalid signed 16-bit integers", () => {
     deepEqual(isValidS16(-0x8001), false, "-0x8001 should return false");
     deepEqual(isValidS16(0x8000), false, "0x8000 should return false");
+}
+);
+
+test("that isValidU32 returns true for valid unsigned 32-bit integers", () => {
+    deepEqual(isValidU32(0x00000000), true, "0x00000000 should return true");
+    deepEqual(isValidU32(0x12345678), true, "0x12345678 should return true");
+    deepEqual(isValidU32(0xffffffff), true, "0xffffffff should return true");
+}
+);
+
+test("that isValidU32 returns false for invalid unsigned 32-bit integers", () => {
+    deepEqual(isValidU32(-1), false, "-1 should return false");
+    deepEqual(isValidU32(0x100000000), false, "0x100000000 should return false");
+}
+);
+
+test("that isValidS32 returns true for valid signed 32-bit integers", () => {
+    deepEqual(isValidS32(-0x80000000), true, "-0x80000000 should return true");
+    deepEqual(isValidS32(-0x12345678), true, "-0x12345678 should return true");
+    deepEqual(isValidS32(0x12345678), true, "0x12345678 should return true");
+    deepEqual(isValidS32(0x7fffffff), true, "0x7fffffff should return true");
 }
 );
 
